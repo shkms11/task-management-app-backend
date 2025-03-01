@@ -15,8 +15,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\task-management-app-backend\task-management-app-backend.csproj" />
-  </ItemGroup>
-
 </Project>
