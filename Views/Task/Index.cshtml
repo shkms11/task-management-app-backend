@@ -1,0 +1,32 @@
+<h1>Task Management App</h1>
+
+<div>
+    <h2>Task List</h2>
+    <p>
+        <a href="@Url.Action("Create", "Task")">Create New Task</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Completed</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Model)
+            {
+                <tr>
+                    <td>@task.Title</td>
+                    <td>@task.Description</td>
+                    <td>@task.IsCompleted ? "Yes" : "No"</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Task", new { id = task.Id })">Edit</a> |
+                        <a href="@Url.Action("Delete", "Task", new { id = task.Id })">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

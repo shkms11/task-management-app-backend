@@ -1,0 +1,40 @@
+// filepath: /task-management-app-backend/task-management-app-backend/wwwroot/js/app.js
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to fetch tasks from the server
+    function fetchTasks() {
+        fetch('/api/tasks')
+            .then(response => response.json())
+            .then(data => {
+                const taskList = document.getElementById('task-list');
+                taskList.innerHTML = '';
+                data.forEach(task => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = task.title;
+                    taskList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error fetching tasks:', error));
+    }
+
+    // Call fetchTasks on page load
+    fetchTasks();
+
+    // Add event listener for the task creation form
+    const taskForm = document.getElementById('task-form');
+    if (taskForm) {
+        taskForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(taskForm);
+            fetch('/api/tasks', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Task created:', data);
+                fetchTasks(); // Refresh the task list
+            })
+            .catch(error => console.error('Error creating task:', error));
+        });
+    }
+});
